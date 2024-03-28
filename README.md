@@ -15,7 +15,7 @@
 To use `apsbot.py`, you need:
 
 - Python 3.6 or newer.
-- An Anthropic API access with credentials (`model`, `region`, `project_id`).
+- An Anthropic API access with credentials (`model`, `region`, `project_id`) using Google Cloud VertexAI.
 - A Discord channel and a webhook URL for posting the updates.
 
 ## Setup
