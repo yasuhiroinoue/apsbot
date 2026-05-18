@@ -14,9 +14,9 @@
 
 To use `apsbot.py`, you need:
 
-- Python 3.6 or newer.
-- An Anthropic API access with credentials (`model`, `region`, `project_id`) using Google Cloud VertexAI.
-- A Discord channel and a webhook URL for posting the updates.
+- Python 3.9 or newer.
+- A Google Cloud project with Vertex AI enabled and credentials (`model`, `region`, `project_id`) to call Gemini models.
+- A Discord channel and one or more webhook URLs for posting the updates.
 
 ## Setup
 
@@ -34,7 +34,7 @@ To use `apsbot.py`, you need:
     Install the required Python libraries:
 
     ```bash
-    pip install feedparser requests python-dotenv python-dateutil
+    pip install feedparser requests python-dotenv python-dateutil google-genai
     ```
 
 3. **Configure Environment Variables**
@@ -42,15 +42,17 @@ To use `apsbot.py`, you need:
     Make a copy of `.env.example` as `.env` and update it with your specific details:
 
     ```
-    WEBHOOK_URL=https://discord.com/api/webhooks/your_webhook_url
-    MODEL=your_model_identifier
-    REGION=your_region
+    WEBHOOK_URLS=https://discord.com/api/webhooks/your_webhook_url1,https://discord.com/api/webhooks/your_webhook_url2
+    MODEL=gemini-flash-lite-latest
+    REGION=global
     PROJECT_ID=your_project_id
     DATE_FILE_PATH=path_to_store_last_processed_date.txt
     RSS_URL=http://feeds.aps.org/rss/allsuggestions.xml
     ```
 
-    These settings include your webhook URL, API access credentials, and the path for a file to track the last processed date from the RSS feed.
+    These settings include your Discord webhook URLs (comma-separated), Vertex AI credentials for Gemini, and the path for a file to track the last processed date from the RSS feed.
+
+    Authenticate to Google Cloud beforehand (e.g. `gcloud auth application-default login`) so the `google-genai` client can use Vertex AI.
 
 4. **Running the Script**
 
