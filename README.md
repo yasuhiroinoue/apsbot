@@ -66,6 +66,26 @@ To use `apsbot.py`, you need:
 
 With `apsbot.py`, you can ensure that you and your community are always informed about the latest research and articles published in the Physical Review Journals. The script can be set up to run periodically via a cron job or another task scheduler to automate the process of fetching, translating, and posting updates.
 
+### Running periodically with cron
+
+Open the user crontab:
+
+```bash
+crontab -e
+```
+
+Then add a line such as the following to run weekly on Sunday at 00:00:
+
+```
+0 0 * * 0 /path/to/venv/bin/python3 /path/to/apsbot/apsbot.py
+```
+
+Notes:
+
+- Use absolute paths for both the Python interpreter and the script — cron does not inherit your shell `PATH`.
+- `python-dotenv` loads `.env` from the script's working directory. If you invoke the script from elsewhere, either `cd` into the project first (`0 0 * * 0 cd /path/to/apsbot && /path/to/venv/bin/python3 apsbot.py`) or set `DATE_FILE_PATH` to an absolute path and place `.env` next to the script.
+- Google Cloud credentials (`gcloud auth application-default login`) must already be set up for the user that owns the cron job.
+
 ## Contributing
 
 Contributions, feature requests, and bug reports are welcome! Feel free to fork the repository, make your changes, and submit a pull request to improve `apsbot`.
